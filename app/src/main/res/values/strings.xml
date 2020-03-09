@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GitStar</string>
+    <string name="home_activity_header">GitHub Populars</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="tab_text_1">Repositories</string>
+    <string name="tab_text_2">Developers</string>
+</resources>

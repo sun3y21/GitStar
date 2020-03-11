@@ -12,7 +12,7 @@ import com.sunshine.gitstar.GlideApp
 import com.sunshine.gitstar.R
 import com.sunshine.gitstar.data.repository.Repository
 
-class ReposRVAdapter(private val context: Context) : RecyclerView.Adapter<ReposRVAdapter.RepositoryViewHolder>() {
+class ReposRVAdapter(private val context: Context,private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<ReposRVAdapter.RepositoryViewHolder>() {
 
     var inflater: LayoutInflater = LayoutInflater.from(context)
     private val trendingRepository = ArrayList<Repository>()
@@ -32,26 +32,34 @@ class ReposRVAdapter(private val context: Context) : RecyclerView.Adapter<ReposR
     override fun getItemCount(): Int = trendingRepository.size
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
-        holder.repoAuthor.text = context.getString(R.string.author,trendingRepository[position].author)
-        holder.repoDescription.text = trendingRepository[position].description
-        holder.repoName.text = trendingRepository[position].name
-        holder.repoFork.text = "${trendingRepository[position].forks}"
-        holder.repoStar.text = "${trendingRepository[position].stars}"
-        GlideApp.with(context).load(trendingRepository[position].avatar)
-            .apply(RequestOptions().circleCrop())
-            .error(R.drawable.dummy_repo)
-            .placeholder(R.drawable.dummy_repo)
-            .into(holder.repoAvatar)
+        holder.bind(trendingRepository[position],itemClickListener)
     }
 
 
     inner class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        val repoAvatar: ImageView = itemView.findViewById(R.id.repo_avatar)
-        val repoName: TextView = itemView.findViewById(R.id.repo_name)
-        val repoAuthor: TextView = itemView.findViewById(R.id.repo_author)
-        val repoDescription: TextView = itemView.findViewById(R.id.repo_description)
-        val repoStar: TextView = itemView.findViewById(R.id.repo_star)
-        val repoFork: TextView = itemView.findViewById(R.id.repo_fork)
+        private val repoAvatar: ImageView = itemView.findViewById(R.id.repo_avatar)
+        private val repoName: TextView = itemView.findViewById(R.id.repo_name)
+        private val repoAuthor: TextView = itemView.findViewById(R.id.repo_author)
+        private val repoDescription: TextView = itemView.findViewById(R.id.repo_description)
+        private val repoStar: TextView = itemView.findViewById(R.id.repo_star)
+        private val repoFork: TextView = itemView.findViewById(R.id.repo_fork)
+
+        fun bind(repo : Repository,clickListener: OnItemClickListener)
+        {
+            repoAuthor.text = context.getString(R.string.author,repo.author)
+            repoDescription.text = repo.description
+            repoName.text = repo.name
+            repoFork.text = "${repo.forks}"
+            repoStar.text = "${repo.stars}"
+            GlideApp.with(context).load(repo.avatar)
+                .apply(RequestOptions().circleCrop())
+                .error(R.drawable.dummy_repo)
+                .placeholder(R.drawable.dummy_repo)
+                .into(repoAvatar)
+             itemView.setOnClickListener {
+                 clickListener.onItemClicked(repo)
+             }
+        }
     }
 }

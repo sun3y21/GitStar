@@ -54,7 +54,7 @@ class RepositoryViewModel : ViewModel() {
         {
             for(repo in trendingRepository.value!!)
             {
-                if(repo.name.contains(text,true))
+                if(repo.name != null && repo.name.contains(text,true))
                     tempfilterList.add(repo)
             }
             filteredRepoList.value = tempfilterList

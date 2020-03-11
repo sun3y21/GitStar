@@ -1,5 +1,6 @@
 package com.sunshine.gitstar.ui.main.trendingRepos
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,16 @@ class TrendingReposFragment : BaseListFragment() {
 
     override fun onCreate()
     {
-        repoAdapter = ReposRVAdapter(context!!)
+        repoAdapter = ReposRVAdapter(context!!,object : OnItemClickListener{
+            override fun onItemClicked(repo: Repository)
+            {
+                val intent = Intent(context, RepositoryDetailViewActivity::class.java)
+                intent.putExtra(REPOSITORY, repo)
+                intent.putExtra(REPOSITORY_NAME, repo.name)
+                startActivity(intent)
+            }
+        })
+
         repositoryViewModel = ViewModelProviders.of(this).get(RepositoryViewModel::class.java)
         repositoryViewModel.getTrendingRepos().observe(this, Observer<List<Repository>> { repos: List<Repository> ->
             repoAdapter.addRepositories(repos)
@@ -62,6 +72,8 @@ class TrendingReposFragment : BaseListFragment() {
 
     companion object {
 
+        const val REPOSITORY = "Repository"
+        const val REPOSITORY_NAME = "Repository_name"
         @JvmStatic
         fun newInstance(): TrendingReposFragment {
             return TrendingReposFragment()

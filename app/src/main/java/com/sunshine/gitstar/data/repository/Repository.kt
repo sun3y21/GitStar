@@ -1,3 +1,5 @@
+package com.sunshine.gitstar.data.repository
+
 import com.google.gson.annotations.SerializedName
 
 data class Repository (

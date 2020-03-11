@@ -64,12 +64,6 @@ abstract class BaseListFragment : Fragment()
         outState.putString(filteredTextKey, filteredText)
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        isListFiltered = savedInstanceState?.getBoolean(isListFilteredKey) ?: false
-        filteredText = savedInstanceState?.getString(filteredTextKey)
-    }
-
     abstract fun getAdapter() : RecyclerView.Adapter<*>
     abstract fun onCreate()
     abstract fun onSearchTextSubmit(text: String?)
@@ -90,6 +84,13 @@ abstract class BaseListFragment : Fragment()
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = getAdapter()
+
+        if(savedInstanceState != null)
+        {
+            isListFiltered = savedInstanceState.getBoolean(isListFilteredKey)
+            filteredText = savedInstanceState.getString(filteredTextKey)
+        }
+
         if(isListFiltered)
         {
             clearFilter?.text = filteredText

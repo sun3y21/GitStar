@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.sunshine.gitstar.R
+import com.sunshine.gitstar.ui.main.trendingDevs.TrendingDevsFragment
+import com.sunshine.gitstar.ui.main.trendingRepos.TrendingReposFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,

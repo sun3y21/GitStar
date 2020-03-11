@@ -1,4 +1,4 @@
-package com.sunshine.gitstar.ui.main
+package com.sunshine.gitstar.ui.main.trendingRepos
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

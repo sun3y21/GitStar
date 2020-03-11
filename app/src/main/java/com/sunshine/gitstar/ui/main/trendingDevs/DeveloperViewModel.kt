@@ -1,4 +1,4 @@
-package com.sunshine.gitstar.ui.main
+package com.sunshine.gitstar.ui.main.trendingDevs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,7 +26,6 @@ class DeveloperViewModel : ViewModel() {
     {
         return callSuccess
     }
-
 
     private fun fetchTrendingDevelopers()
     {

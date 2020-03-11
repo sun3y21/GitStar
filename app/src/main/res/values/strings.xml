@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">GitStar</string>
     <string name="home_activity_header">GitHub Populars</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">GitHub Popular</string>
     <string name="tab_text_1">Repositories</string>
     <string name="tab_text_2">Developers</string>
+    <string name="error_in_fetching_data">Error in fetching data</string>
+    <string name="network_error">Unable to connect to server. Please check your internet connection</string>
 </resources>

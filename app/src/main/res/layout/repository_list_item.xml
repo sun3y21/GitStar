@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:minHeight="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+   <ImageView
+       android:layout_width="75dp"
+       android:id="@+id/dev_avatar"
+       tools:src="@mipmap/ic_launcher"
+       android:layout_marginStart="16dp"
+       android:layout_marginTop="8dp"
+       android:layout_marginBottom="8dp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       android:layout_height="75dp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@id/dev_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        tools:text="Developer Name"
+        android:textSize="14sp"
+        android:id="@+id/dev_name"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@id/dev_avatar"
+        app:layout_constraintTop_toBottomOf="@id/dev_name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        tools:text="Developer handler"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:textStyle="italic"
+        android:id="@+id/dev_handle"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@id/dev_avatar"
+        app:layout_constraintTop_toBottomOf="@id/dev_handle"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        tools:text="Developer handler"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:id="@+id/dev_git_url"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

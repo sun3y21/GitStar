@@ -52,7 +52,7 @@ class DeveloperViewModel : ViewModel() {
         {
             for(dev in trendingDevelopers.value!!)
             {
-                if(dev.name.contains(text,true))
+                if(dev.name != null && dev.name.contains(text,true))
                     tempFilteredDev.add(dev)
             }
             filteredDevList.value = tempFilteredDev

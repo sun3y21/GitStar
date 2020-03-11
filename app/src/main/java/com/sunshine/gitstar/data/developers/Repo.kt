@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Repo (
 
-	@SerializedName("name") val name : String,
-	@SerializedName("description") val description : String,
+	@SerializedName("name") val name : String?,
+	@SerializedName("description") val description : String?,
 	@SerializedName("url") val url : String
 ) : Parcelable

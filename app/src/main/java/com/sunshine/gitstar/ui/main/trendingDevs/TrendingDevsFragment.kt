@@ -15,7 +15,7 @@ class TrendingDevsFragment : BaseListFragment() {
 
     override fun onCreate()
     {
-        devAdapter = DeveloperRVAdapter(context!!)
+        devAdapter = DeveloperRVAdapter(context!!, false)
         developerViewModel = ViewModelProviders.of(this).get(DeveloperViewModel::class.java)
         developerViewModel.getTrendingDevelopers().observe(this, Observer<List<Developer>> { devs: List<Developer> ->
             devAdapter.setDeveloperList(devs)

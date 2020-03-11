@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.sunshine.gitstar.GlideApp
 import com.sunshine.gitstar.R
 import com.sunshine.gitstar.data.developers.Developer
 
@@ -39,8 +40,10 @@ class DeveloperRVAdapter(private val context: Context) : RecyclerView.Adapter<De
     {
         holder.devName.text = developersList[position].name
         holder.githandle.text = developersList[position].username //it's invisible wasn't looking good
-        Glide.with(context).load(developersList[position].avatar)
+        GlideApp.with(context).load(developersList[position].avatar)
              .apply(RequestOptions().circleCrop())
+             .error(R.drawable.dummy_profile)
+             .placeholder(R.drawable.dummy_profile)
              .into(holder.avatar)
         holder.giturl.text = developersList[position].url
     }

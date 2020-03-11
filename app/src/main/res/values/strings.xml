@@ -6,4 +6,5 @@
     <string name="tab_text_2">Developers</string>
     <string name="error_in_fetching_data">Error in fetching data</string>
     <string name="network_error">Unable to connect to server. Please check your internet connection</string>
+    <string name="author">Author : %s</string>
 </resources>

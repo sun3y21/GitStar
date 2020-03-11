@@ -1,61 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:minHeight="90dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="#FFFFFF"
+android:minHeight="90dp"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:orientation="vertical">
 
-   <ImageView
-       android:layout_width="75dp"
-       android:id="@+id/dev_avatar"
-       tools:src="@mipmap/ic_launcher"
-       android:layout_marginStart="16dp"
-       android:layout_marginTop="8dp"
-       android:layout_marginBottom="8dp"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       android:layout_height="75dp"/>
+<ImageView
+    android:layout_width="75dp"
+    android:id="@+id/repo_avatar"
+    tools:src="@mipmap/ic_launcher"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_height="75dp"/>
 
-    <TextView
-        android:layout_width="0dp"
-        app:layout_constraintStart_toEndOf="@id/dev_avatar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        tools:text="Developer Name"
-        android:textSize="14sp"
-        android:id="@+id/dev_name"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"/>
+<TextView
+    android:layout_width="0dp"
+    app:layout_constraintStart_toEndOf="@id/repo_avatar"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/repo_star"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    tools:text="Developer Name"
+    android:textSize="14sp"
+    android:id="@+id/repo_name"
+    android:textStyle="bold"
+    android:maxLines="1"
+    android:layout_marginEnd="3dp"
+    android:ellipsize="end"
+    android:textColor="@color/black"
+    android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_width="0dp"
-        app:layout_constraintStart_toEndOf="@id/dev_avatar"
-        app:layout_constraintTop_toBottomOf="@id/dev_name"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
-        tools:text="Developer handler"
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:textStyle="italic"
-        android:id="@+id/dev_handle"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"/>
+<TextView
+    android:layout_width="0dp"
+    app:layout_constraintStart_toEndOf="@id/repo_avatar"
+    app:layout_constraintTop_toBottomOf="@id/repo_name"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="2dp"
+    tools:text="Repo Author Name"
+    android:textSize="12sp"
+    android:id="@+id/repo_author"
+    android:textColor="@color/black"
+    android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_width="0dp"
-        app:layout_constraintStart_toEndOf="@id/dev_avatar"
-        app:layout_constraintTop_toBottomOf="@id/dev_handle"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
-        tools:text="Developer handler"
-        android:textSize="12sp"
-        android:textStyle="italic"
-        android:id="@+id/dev_git_url"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"/>
+<TextView
+    android:layout_width="0dp"
+    app:layout_constraintStart_toEndOf="@id/repo_avatar"
+    app:layout_constraintTop_toBottomOf="@id/repo_author"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="2dp"
+    tools:text="Repo Description"
+    android:textSize="12sp"
+    android:maxLines="2"
+    android:layout_marginEnd="24dp"
+    android:textStyle="italic"
+    android:id="@+id/repo_description"
+    android:textColor="@color/black"
+    android:layout_height="wrap_content"/>
+
+<TextView
+    android:layout_width="0dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    tools:text="Repo Stars"
+    android:textSize="12sp"
+    android:layout_marginEnd="24dp"
+    android:textStyle="italic"
+    android:id="@+id/repo_star"
+    android:drawablePadding="3dp"
+    android:drawableStart="@drawable/ic_star_8"
+    android:textColor="@color/black"
+    android:layout_height="wrap_content"/>
+
+<TextView
+    android:layout_width="0dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/repo_star"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="2dp"
+    tools:text="Repo Fork"
+    android:textSize="12sp"
+    android:layout_marginEnd="24dp"
+    android:textStyle="italic"
+    android:id="@+id/repo_fork"
+    android:drawablePadding="3dp"
+    android:drawableStart="@drawable/ic_fork"
+    android:textColor="@color/black"
+    android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

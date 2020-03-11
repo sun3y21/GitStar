@@ -1,10 +1,10 @@
 package com.sunshine.gitstar.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +17,27 @@ abstract class BaseListFragment : Fragment()
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private var searchActionView: SearchView? = null
+    private var isListFiltered = false
+    private var clearFilter: TextView? = null
+    private val isListFilteredKey = "IS_LIST_FILTERED"
+    private val filteredTextKey = "FILTERED_TEXT"
+    var filteredText: String? = null
+
+    fun isListFiltered() : Boolean = isListFiltered
+
+    fun setIsListFilteredStatus(status: Boolean)
+    {
+        isListFiltered = status
+        clearFilter?.visibility = if(status)
+        {
+            clearFilter?.text = filteredText
+            View.VISIBLE
+        }
+        else
+        {
+            View.GONE
+        }
+    }
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +58,23 @@ abstract class BaseListFragment : Fragment()
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(isListFilteredKey,isListFiltered)
+        outState.putString(filteredTextKey, filteredText)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        isListFiltered = savedInstanceState?.getBoolean(isListFilteredKey) ?: false
+        filteredText = savedInstanceState?.getString(filteredTextKey)
+    }
+
     abstract fun getAdapter() : RecyclerView.Adapter<*>
     abstract fun onCreate()
     abstract fun onSearchTextSubmit(text: String?)
+    abstract fun onSearchEnd()
+    abstract fun clearFilter()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -48,12 +83,25 @@ abstract class BaseListFragment : Fragment()
         errorScreen = root.findViewById(R.id.error_screen)
         recyclerView = root.findViewById(R.id.item_list)
         progressBar = root.findViewById(R.id.progress_bar)
+        clearFilter = root.findViewById(R.id.clear_filter)
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = getAdapter()
+        if(isListFiltered)
+        {
+            clearFilter?.text = filteredText
+            clearFilter?.visibility = View.VISIBLE
+        }
+        clearFilter?.setOnClickListener {
+            setIsListFilteredStatus(false)
+            filteredText = null
+            clearFilter?.visibility = View.GONE
+            searchActionView?.setQuery("",false)
+            clearFilter()
+        }
         return root
     }
 
@@ -67,12 +115,23 @@ abstract class BaseListFragment : Fragment()
             {
                 onSearchTextSubmit(query)
                 searchActionView?.clearFocus()
-                searchViewItem.collapseActionView()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean
             {
+                return true
+            }
+        })
+
+        searchViewItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener
+        {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                onSearchEnd()
                 return true
             }
         })

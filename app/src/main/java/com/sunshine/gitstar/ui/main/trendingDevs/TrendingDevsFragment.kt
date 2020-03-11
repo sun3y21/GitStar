@@ -27,11 +27,36 @@ class TrendingDevsFragment : BaseListFragment() {
         developerViewModel.getDataFetchStatus().observe(this, Observer { isSuccess ->
             manageViewsAfterDataFetch(isSuccess)
         })
+
+        developerViewModel.filteredDevList.observe(this, Observer { filteredDevs ->
+            if(isListFiltered())
+            {
+                devAdapter.setDeveloperList(filteredDevs)
+            }
+        })
     }
 
     override fun getAdapter(): RecyclerView.Adapter<*> = devAdapter
 
     override fun onSearchTextSubmit(text: String?) {
+        //set the source to a new filtered list
+        if(text != null)
+        {
+            filteredText = text
+            setIsListFilteredStatus(true)
+            developerViewModel.filterDevs(text)
+        }
+
+    }
+
+    override fun onSearchEnd() {
+        //restore original content
+        devAdapter.setDeveloperList(trendingDevelopers)
+        setIsListFilteredStatus(false)
+    }
+
+    override fun clearFilter() {
+        devAdapter.setDeveloperList(trendingDevelopers)
     }
 
     companion object {

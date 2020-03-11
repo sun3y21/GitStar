@@ -17,6 +17,8 @@ class RepositoryViewModel : ViewModel() {
 
     private val callSuccess : MutableLiveData<Boolean> = MutableLiveData()
 
+    val filteredRepoList = MutableLiveData<List<Repository>>()
+
 
     fun getTrendingRepos() : LiveData<List<Repository>>
     {
@@ -43,6 +45,20 @@ class RepositoryViewModel : ViewModel() {
                  callSuccess.value = false
              }
          }
+    }
+
+    fun filterList(text: String)
+    {
+        val tempfilterList = ArrayList<Repository>()
+        if(trendingRepository.value != null)
+        {
+            for(repo in trendingRepository.value!!)
+            {
+                if(repo.name.contains(text,true))
+                    tempfilterList.add(repo)
+            }
+            filteredRepoList.value = tempfilterList
+        }
     }
 }
 

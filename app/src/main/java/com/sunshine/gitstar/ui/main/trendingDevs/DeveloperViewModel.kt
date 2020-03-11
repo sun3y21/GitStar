@@ -16,6 +16,8 @@ class DeveloperViewModel : ViewModel() {
 
     private val callSuccess : MutableLiveData<Boolean> = MutableLiveData()
 
+    val filteredDevList = MutableLiveData<List<Developer>>()
+
 
     fun getTrendingDevelopers() : LiveData<List<Developer>>
     {
@@ -40,6 +42,20 @@ class DeveloperViewModel : ViewModel() {
             {
                 callSuccess.value = false
             }
+        }
+    }
+
+    fun filterDevs(text: String)
+    {
+        val tempFilteredDev = ArrayList<Developer>()
+        if(trendingDevelopers.value != null)
+        {
+            for(dev in trendingDevelopers.value!!)
+            {
+                if(dev.name.contains(text,true))
+                    tempFilteredDev.add(dev)
+            }
+            filteredDevList.value = tempFilteredDev
         }
     }
 }

@@ -27,6 +27,13 @@ class TrendingReposFragment : BaseListFragment() {
         repositoryViewModel.getDataFetchStatus().observe(this, Observer { isSuccess ->
             manageViewsAfterDataFetch(isSuccess)
         })
+
+        repositoryViewModel.filteredRepoList.observe(this, Observer { filteredRepos ->
+            if(isListFiltered())
+            {
+                repoAdapter.addRepositories(filteredRepos)
+            }
+        })
     }
 
     override fun getAdapter(): RecyclerView.Adapter<*>
@@ -35,7 +42,22 @@ class TrendingReposFragment : BaseListFragment() {
     }
 
     override fun onSearchTextSubmit(text: String?) {
+        if(text != null)
+        {
+            filteredText = text
+            setIsListFilteredStatus(true)
+            repositoryViewModel.filterList(text)
+        }
+    }
 
+    override fun onSearchEnd() {
+        //restore original content
+        repoAdapter.addRepositories(trendingRepositories)
+        setIsListFilteredStatus(false)
+    }
+
+    override fun clearFilter() {
+        repoAdapter.addRepositories(trendingRepositories)
     }
 
     companion object {
